@@ -11,10 +11,10 @@ const covid19ImpactEstimator = (data) => {
     }
     return period;
   }
-  function dolarsInFlightFunc(time){
+  function dolarsInFlightFunc(time) {
     let timePeriod = 0;
     if (data.periodType === 'days') {
-      timePeriod = time
+      timePeriod = time;
     } else if (data.periodType === 'weeks') {
       timePeriod = time * 7;
     } else {
