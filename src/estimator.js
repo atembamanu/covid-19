@@ -1,13 +1,12 @@
 const covid19ImpactEstimator = (data) => {
   const input = data;
   function timePeriods(time){
-      if (time == "days") {
-        return Math.trunc(time / 3);
-      }else if (time == "weeks") {
-        return Math.trunc(time * 7 / 3);
-      } else {
-        return Math.trunc(time * 30 / 3);
-      }
+    if (time === 'days') {
+      return Math.trunc(time / 3);
+    }else if (time === 'weeks') {
+      return Math.trunc((time * 7) / 3);
+    }
+      return Math.trunc((time * 30) / 3);
   }
   const period = timePeriods(data.periodType);
   const iCurrentlyInfected = data.reportedCases * 10;
