@@ -25,7 +25,7 @@ const covid19ImpactEstimator = (data) => {
   const period = timePeriods(data.timeToElapse);
   const iCurrentlyInfected = data.reportedCases * 10;
   const sCurrentlyInfected = data.reportedCases * 50;
-  const dailyC = data.avgDailyIncomePopulation;
+  const dailyC = data.region.avgDailyIncomePopulation;
   const iInfectionsByRequestedTime = iCurrentlyInfected * (2 ** period);
   const sInfectionsByRequestedTime = sCurrentlyInfected * (2 ** period);
   const iCasesForICUByRequestedTime = iInfectionsByRequestedTime * 0.05;
@@ -37,7 +37,7 @@ const covid19ImpactEstimator = (data) => {
   const availableCovid19Beds = data.totalHospitalBeds * 0.35;
   const iHospitalBedsByRequestedTime = availableCovid19Beds - iSevereCasesByRequestedTime;
   const sHospitalBedsByRequestedTime = availableCovid19Beds - sSevereCasesByRequestedTime;
-  const cost = data.avgDailyIncomeInUSD * dolarsInFlightFunc(data.timeToElapse);
+  const cost = data.region.avgDailyIncomeInUSD * dolarsInFlightFunc(data.timeToElapse);
   const iDollarsInFlight = (iInfectionsByRequestedTime * dailyC) * cost;
   const sDollarsInFlight = (sInfectionsByRequestedTime * dailyC) * cost;
   return {
