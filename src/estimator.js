@@ -10,12 +10,20 @@ const covid19ImpactEstimator = (data) => {
 
     impact: {
       currentlyInfected: iCurrentlyInfected,
-      infectionsByRequestedTime: iInfectionsByRequestedTime
+      infectionsByRequestedTime: {
+        inDays: 20,
+        inWeeks: 120,
+        inMonths:130
+      }
     },
 
     severeImpact: {
       currentlyInfected: sCurrentlyInfected,
-      infectionsByRequestedTime: sInfectionsByRequestedTime
+      infectionsByRequestedTime: {
+        inDays: 20,
+        inWeeks: 1120,
+        inMonths:11130
+      }
     }
   };
 };
