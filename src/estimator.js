@@ -2,9 +2,9 @@ const covid19ImpactEstimator = (data) => {
   const input = data;
   function timePeriods(time) {
     let period = 0;
-    if (time === 'days') {
+    if (data.periodType === 'days') {
       period = Math.trunc(time / 3);
-    } else if (time === 'weeks') {
+    } else if (data.periodType === 'weeks') {
       period = Math.trunc((time * 7) / 3);
     } else {
       period = Math.trunc((time * 30) / 3);
