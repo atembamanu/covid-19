@@ -11,14 +11,14 @@ const covid19ImpactEstimator = (data) => {
     }
     return period;
   }
-  function dolarsInFlightFunc(time) {
+  function dollarsInFlightFunc(time) {
     let timePeriod = 0;
-    if (data.periodType === 'days') {
-      timePeriod = time;
+    if (data.periodType === 'months') {
+      timePeriod = time * 30;
     } else if (data.periodType === 'weeks') {
       timePeriod = time * 7;
     } else {
-      timePeriod = time * 30;
+      timePeriod = time;
     }
     return timePeriod;
   }
@@ -37,7 +37,7 @@ const covid19ImpactEstimator = (data) => {
   const availableCovid19Beds = data.totalHospitalBeds * 0.35;
   const iHospitalBedsByRequestedTime = availableCovid19Beds - iSevereCasesByRequestedTime;
   const sHospitalBedsByRequestedTime = availableCovid19Beds - sSevereCasesByRequestedTime;
-  const cost = data.region.avgDailyIncomeInUSD * dolarsInFlightFunc(data.timeToElapse);
+  const cost = data.region.avgDailyIncomeInUSD * dollarsInFlightFunc(data.timeToElapse);
   const iDollarsInFlight = (iInfectionsByRequestedTime * dailyC) * cost;
   const sDollarsInFlight = (sInfectionsByRequestedTime * dailyC) * cost;
   return {
