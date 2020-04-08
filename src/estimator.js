@@ -3,8 +3,8 @@ const covid19ImpactEstimator = (data) => {
   const period = (data.timeToElapse) / 3;
   const iCurrentlyInfected = data.reportedCases * 10;
   const sCurrentlyInfected = data.reportedCases * 50;
-  const iInfectionsByRequestedTime = iCurrentlyInfected * (2 ** ~~period);
-  const sInfectionsByRequestedTime = sCurrentlyInfected * (2 ** ~~period);
+  const iInfectionsByRequestedTime = iCurrentlyInfected * (2 ** period);
+  const sInfectionsByRequestedTime = sCurrentlyInfected * (2 ** period);
   return {
     data: input,
 
