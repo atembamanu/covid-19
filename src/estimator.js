@@ -18,8 +18,9 @@ const covid19ImpactEstimator = (data) => {
   const sInfectionsByRequestedTime = sCurrentlyInfected * (2 ** period);
   const iSevereCasesByRequestedTime = iInfectionsByRequestedTime * 0.15;
   const sSevereCasesByRequestedTime = sInfectionsByRequestedTime * 0.15;
-  const iHospitalBedsByRequestedTime = (data.totalHospitalBeds * 0.35) - iSevereCasesByRequestedTime;
-  const sHospitalBedsByRequestedTime = (data.totalHospitalBeds * 0.35) - sSevereCasesByRequestedTime;
+  const availableCovid19Beds = data.totalHospitalBeds * 0.35;
+  const iHospitalBedsByRequestedTime = availableCovid19Beds - iSevereCasesByRequestedTime;
+  const sHospitalBedsByRequestedTime = availableCovid19Beds - sSevereCasesByRequestedTime;
   return {
     data: input,
 
@@ -34,7 +35,7 @@ const covid19ImpactEstimator = (data) => {
       currentlyInfected: sCurrentlyInfected,
       infectionsByRequestedTime: sInfectionsByRequestedTime,
       severeCasesByRequestedTime: sSevereCasesByRequestedTime,
-      sHospitalBedsByRequestedTime: sHospitalBedsByRequestedTime
+      HospitalBedsByRequestedTime: sHospitalBedsByRequestedTime
     }
   };
 };
