@@ -11,7 +11,7 @@ const covid19ImpactEstimator = (data) => {
     }
     return period;
   }
-  const period = timePeriods(data.periodType);
+  const period = timePeriods(data.timeToElapse);
   const iCurrentlyInfected = data.reportedCases * 10;
   const sCurrentlyInfected = data.reportedCases * 50;
   const iInfectionsByRequestedTime = iCurrentlyInfected * (2 ** period);
