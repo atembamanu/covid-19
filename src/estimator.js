@@ -11,8 +11,9 @@ const covid19ImpactEstimator = (data) => {
     }
     return period;
   }
-  function dolarsInFlightFunc(time) {
+  function dolarsInFlightFunc() {
     let timePeriod = 0;
+    const time = data.timeToElapse;
     if (data.periodType === 'days') {
       timePeriod = time;
     } else if (data.periodType === 'weeks') {
@@ -20,9 +21,10 @@ const covid19ImpactEstimator = (data) => {
     } else {
       timePeriod = time * 30;
     }
-    return timePeriod;
+    return data.region.avgDailyIncomeInUSD * timePeriod;
   }
   const period = timePeriods(data.timeToElapse);
+  const dailyIncomePeriod = dolarsInFlightFunc();
   const iCurrentlyInfected = data.reportedCases * 10;
   const sCurrentlyInfected = data.reportedCases * 50;
   const dailyC = data.region.avgDailyIncomePopulation;
@@ -37,9 +39,8 @@ const covid19ImpactEstimator = (data) => {
   const availableCovid19Beds = data.totalHospitalBeds * 0.35;
   const iHospitalBedsByRequestedTime = availableCovid19Beds - iSevereCasesByRequestedTime;
   const sHospitalBedsByRequestedTime = availableCovid19Beds - sSevereCasesByRequestedTime;
-  const cost = data.region.avgDailyIncomeInUSD * dolarsInFlightFunc(data.timeToElapse);
-  const iDollarsInFlight = (iInfectionsByRequestedTime * dailyC) * cost;
-  const sDollarsInFlight = (sInfectionsByRequestedTime * dailyC) * cost;
+  const iDollarsInFlight = (iInfectionsByRequestedTime * dailyC) * dailyIncomePeriod;
+  const sDollarsInFlight = (sInfectionsByRequestedTime * dailyC) * dailyIncomePeriod;
   return {
     data: input,
 
