@@ -1,10 +1,13 @@
 const covid19ImpactEstimator = (data) => {
   const input = data;
+  const {
+    region, periodType, timeToElapse, reportedCases, totalHospitalBeds
+  } = data;
   function timePeriods(time) {
     let period = 0;
-    if (data.periodType === 'days') {
+    if (periodType === 'days') {
       period = Math.trunc(time / 3);
-    } else if (data.periodType === 'weeks') {
+    } else if (periodType === 'weeks') {
       period = Math.trunc((time * 7) / 3);
     } else {
       period = Math.trunc((time * 30) / 3);
@@ -13,21 +16,20 @@ const covid19ImpactEstimator = (data) => {
   }
   function dollarsInFlightFunc(time) {
     let timePeriod = 0;
-    if (data.periodType === 'months') {
+    if (periodType === 'months') {
       timePeriod = time * 30;
-    } else if (data.periodType === 'weeks') {
+    } else if (periodType === 'weeks') {
       timePeriod = time * 7;
     } else {
       timePeriod = time;
     }
     return timePeriod;
   }
-  const region = data.region;
-  const period = timePeriods(data.timeToElapse);
-  const iCurrentlyInfected = data.reportedCases * 10;
-  const sCurrentlyInfected = data.reportedCases * 50;
-  const cost =region.avgDailyIncomeInUSD * dollarsInFlightFunc(data.timeToElapse);
-  const dailyC =region.avgDailyIncomePopulation;
+  const period = timePeriods(timeToElapse);
+  const iCurrentlyInfected = reportedCases * 10;
+  const sCurrentlyInfected = reportedCases * 50;
+  const cost = region.avgDailyIncomeInUSD * dollarsInFlightFunc(timeToElapse);
+  const dailyC = region.avgDailyIncomePopulation;
   const iInfectionsByRequestedTime = iCurrentlyInfected * (2 ** period);
   const sInfectionsByRequestedTime = sCurrentlyInfected * (2 ** period);
   const iCasesForICUByRequestedTime = iInfectionsByRequestedTime * 0.05;
@@ -36,7 +38,7 @@ const covid19ImpactEstimator = (data) => {
   const sCasesForVentilatorsByRequestedTime = sInfectionsByRequestedTime * 0.02;
   const iSevereCasesByRequestedTime = iInfectionsByRequestedTime * 0.15;
   const sSevereCasesByRequestedTime = sInfectionsByRequestedTime * 0.15;
-  const availableCovid19Beds = data.totalHospitalBeds * 0.35;
+  const availableCovid19Beds = totalHospitalBeds * 0.35;
   const iHospitalBedsByRequestedTime = availableCovid19Beds - iSevereCasesByRequestedTime;
   const sHospitalBedsByRequestedTime = availableCovid19Beds - sSevereCasesByRequestedTime;
   const iDollarsInFlight = (iInfectionsByRequestedTime * dailyC) * cost;
@@ -66,5 +68,5 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-//export default covid19ImpactEstimator;
+//  export default covid19ImpactEstimator;
 module.exports = covid19ImpactEstimator;
