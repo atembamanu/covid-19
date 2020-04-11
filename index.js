@@ -2,8 +2,6 @@ const restify = require('restify');
 const mongoose = require('mongoose');
 const config = require('./config');
 const morgan = require('morgan');
-const Log = require('./models/Logs');
-const errors = require('restify-errors');
 const server = restify.createServer();
 const fs = require('fs');
 
