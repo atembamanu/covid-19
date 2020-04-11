@@ -15,15 +15,17 @@ const covid19ImpactEstimator = (data) => {
     return period;
   }
   function dollarsInFlightFunc(time) {
-    let timePeriod = 0;
-    if (periodType === 'months') {
-      timePeriod = time * 30;
-    } else if (periodType === 'weeks') {
-      timePeriod = time * 7;
-    } else {
-      timePeriod = time;
+    const {
+      timePeriod
+    } = data;
+    switch (timePeriod) {
+      case 'months':
+        return time * 30;
+      case 'weeks':
+        return time * 7;
+      default:
+        return time;
     }
-    return timePeriod;
   }
   const period = timePeriods(timeToElapse);
   const iCurrentlyInfected = reportedCases * 10;
