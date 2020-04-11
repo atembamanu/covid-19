@@ -36,8 +36,8 @@ const covid19ImpactEstimator = (data) => {
   const sCasesForICUByRequestedTime = sInfectionsByRequestedTime * 0.05;
   const iCasesForVentilatorsByRequestedTime = iInfectionsByRequestedTime * 0.02;
   const sCasesForVentilatorsByRequestedTime = sInfectionsByRequestedTime * 0.02;
-  const iSevereCasesByRequestedTime = iInfectionsByRequestedTime * 0.15;
-  const sSevereCasesByRequestedTime = sInfectionsByRequestedTime * 0.15;
+  const iSevereCasesByRequestedTime = iInfectionsByRequestedTime * (15 / 100);
+  const sSevereCasesByRequestedTime = sInfectionsByRequestedTime * (15 / 100);
   const availableCovid19Beds = totalHospitalBeds * 0.35;
   const iHospitalBedsByRequestedTime = availableCovid19Beds - iSevereCasesByRequestedTime;
   const sHospitalBedsByRequestedTime = availableCovid19Beds - sSevereCasesByRequestedTime;
