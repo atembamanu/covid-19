@@ -2,34 +2,34 @@ const errors = require('restify-errors');
 const Covid19 = require('../models/Covid19');
 const estimate = require('../src/estimator');
 const xmlFormat = require('object-to-xml');
+const fs = require('fs');
 
 
 
 module.exports = server => {
-    //get data
-    // server.get('/api/v1/on-covid-19', async (req, res, next) => {
-    //     try {
-    //         const covid19Data = await Covid19.find({}, { _id: 0, __v: 0 });
-    //         const estimated = estimate(covid19Data);
-    //         res.send(estimated);
-    //         next();
-    //     } catch (err) {
-    //         return next(new errors.InvalidContentError(`Errors ${err}`));
-    //     }
-
-    // });
+  
+    server.get('/api/v1/on-covid-19/logs', (req, res, next) => {
+        const path = process.cwd();
+        try {
+            const data = fs.readFileSync(path+'/logs.txt', 'utf8')
+            res.send(data);
+            next();
+          } catch (err) {
+            return next(new errors.ResourceNotFoundError(err.message));
+          }
+    });
 
 
     //add data
 
     server.post('/api/v1/on-covid-19', async (req, res, next) => {
         getJsonResponce(req, res, next);
+    
     });
 
     server.post('/api/v1/on-covid-19/json', async (req, res, next) => {
         getJsonResponce(req, res, next);
     });
-
 
     server.post('/api/v1/on-covid-19/xml', async (req, res, next) => {
         if (!req.is('application/json')) {
@@ -95,7 +95,6 @@ module.exports = server => {
             };
 
             res.send(xmlFormat(obj));
-            console.log(xmlFormat(obj));
             next();
 
         } catch (err) {
@@ -105,6 +104,7 @@ module.exports = server => {
 
 
     function getJsonResponce(req, res, next) {
+        //console.log(req.path());
         if (!req.is('application/json')) {
             return next(new errors.InvalidContentError("Expects Json"));
         }
@@ -127,6 +127,7 @@ module.exports = server => {
         });
         try {
             const estimated = estimate(covid19);
+            
             res.send(estimated);
             next();
 
@@ -134,12 +135,4 @@ module.exports = server => {
             return next(new errors.InternalError(err.message));
         }
     }
-
-    function getXmlResponse(estimated, res) {
-
-    }
-
-
-
-
 };

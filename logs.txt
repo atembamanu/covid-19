@@ -1,0 +1,5 @@
+1586643698035		on-covid-19		 done in 10.014 ms
+1586643708697		on-covid-19/xml		 done in 3.491 ms
+1586643714549		on-covid-19/json		 done in 3.015 ms
+1586643727400		on-covid-19/logs		 done in 0.727 ms
+1586643751546		on-covid-19/logs		 done in 1.168 ms
