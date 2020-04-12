@@ -1,3 +1,3 @@
-1586692054912		on-covid-19		 done in 7.406 ms
-1586692073085		on-covid-19/json		 done in 2.373 ms
-1586692092524		on-covid-19/xml		 done in 1.746 ms
+1586694408172		on-covid-19/xml		 done in 7.344 ms
+1586694419585		on-covid-19/json		 done in 2.837 ms
+1586694425439		on-covid-19		 done in 0.947 ms

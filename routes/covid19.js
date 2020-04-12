@@ -13,7 +13,12 @@ module.exports = server => {
         const path = process.cwd();
         try {
             const data = fs.readFileSync(path + '/logs.txt', 'utf8')
-            res.end(data);
+            const lines = data.split('\n');
+            // remove one line, starting at the first position
+            lines.splice(-1, 1);
+            // join the array back into a single string
+            const finalData = lines.join('\n');
+            res.end(finalData);
             next();
         } catch (err) {
             return next(new errors.ResourceNotFoundError(err.message));
