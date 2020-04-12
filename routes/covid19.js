@@ -9,10 +9,11 @@ const fs = require('fs');
 module.exports = server => {
   
     server.get('/api/v1/on-covid-19/logs', (req, res, next) => {
+        res.setHeader('content-type', 'text/plain');
         const path = process.cwd();
         try {
             const data = fs.readFileSync(path+'/logs.txt', 'utf8')
-            res.send(data);
+            res.end(data);
             next();
           } catch (err) {
             return next(new errors.ResourceNotFoundError(err.message));
@@ -32,6 +33,7 @@ module.exports = server => {
     });
 
     server.post('/api/v1/on-covid-19/xml', async (req, res, next) => {
+        res.setHeader('content-type', 'application/xml');
         if (!req.is('application/json')) {
             return next(new errors.InvalidContentError("Expects Json"));
         }
@@ -94,7 +96,8 @@ module.exports = server => {
                 }
             };
 
-            res.send(xmlFormat(obj));
+        
+            res.end(xmlFormat(obj));
             next();
 
         } catch (err) {
