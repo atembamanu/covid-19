@@ -7,17 +7,17 @@ const fs = require('fs');
 
 
 module.exports = server => {
-  
+
     server.get('/api/v1/on-covid-19/logs', (req, res, next) => {
         res.setHeader('content-type', 'text/plain');
         const path = process.cwd();
         try {
-            const data = fs.readFileSync(path+'/logs.txt', 'utf8')
+            const data = fs.readFileSync(path + '/logs.txt', 'utf8')
             res.end(data);
             next();
-          } catch (err) {
+        } catch (err) {
             return next(new errors.ResourceNotFoundError(err.message));
-          }
+        }
     });
 
 
@@ -26,7 +26,7 @@ module.exports = server => {
     server.post('/api/v1/on-covid-19', async (req, res, next) => {
         res.setHeader('content-type', 'application/json');
         getJsonResponce(req, res, next);
-    
+
     });
 
     server.post('/api/v1/on-covid-19/json', async (req, res, next) => {
@@ -64,12 +64,21 @@ module.exports = server => {
             var obj = {
                 '?xml version="1.0" encoding="UTF-8"?': null,
                 data: {
+                    '@': {
+                        type: "dict"
+                    },
                     '#': {
                         region: {
-                            name: region.name,
-                            avgAge: region.avgAge,
-                            avgDailyIncomeInUSD: region.avgDailyIncomeInUSD,
-                            avgDailyIncomePopulation: region.avgDailyIncomePopulation
+                            '@': {
+                                type: "dict"
+                            },
+                            '#': {
+                                name: region.name,
+                                avgAge: region.avgAge,
+                                avgDailyIncomeInUSD: region.avgDailyIncomeInUSD,
+                                avgDailyIncomePopulation: region.avgDailyIncomePopulation
+                            }
+
                         },
                         periodType: data.periodType,
                         timeToElapse: data.timeToElapse,
@@ -79,26 +88,38 @@ module.exports = server => {
                     }
                 },
                 impact: {
-                    currentlyInfected: impact.currentlyInfected,
-                    infectionsByRequestedTime: impact.infectionsByRequestedTime,
-                    severeCasesByRequestedTime: impact.severeCasesByRequestedTime,
-                    hospitalBedsByRequestedTime: impact.hospitalBedsByRequestedTime,
-                    casesForICUByRequestedTime: impact.casesForICUByRequestedTime,
-                    casesForVentilatorsByRequestedTime: impact.casesForVentilatorsByRequestedTime,
-                    dollarsInFlight: impact.dollarsInFlight
+                    '@': {
+                        type: "dict"
+                    },
+                    '#': {
+                        currentlyInfected: impact.currentlyInfected,
+                        infectionsByRequestedTime: impact.infectionsByRequestedTime,
+                        severeCasesByRequestedTime: impact.severeCasesByRequestedTime,
+                        hospitalBedsByRequestedTime: impact.hospitalBedsByRequestedTime,
+                        casesForICUByRequestedTime: impact.casesForICUByRequestedTime,
+                        casesForVentilatorsByRequestedTime: impact.casesForVentilatorsByRequestedTime,
+                        dollarsInFlight: impact.dollarsInFlight
+                    }
+
                 },
                 severeImpact: {
-                    currentlyInfected: severeImpact.currentlyInfected,
-                    infectionsByRequestedTime: severeImpact.infectionsByRequestedTime,
-                    severeCasesByRequestedTime: severeImpact.severeCasesByRequestedTime,
-                    hospitalBedsByRequestedTime: severeImpact.hospitalBedsByRequestedTime,
-                    casesForICUByRequestedTime: severeImpact.casesForICUByRequestedTime,
-                    casesForVentilatorsByRequestedTime: severeImpact.casesForVentilatorsByRequestedTime,
-                    dollarsInFlight: severeImpact.dollarsInFlight
+                    '@': {
+                        type: "dict",
+                    },
+                    '#': {
+                        currentlyInfected: severeImpact.currentlyInfected,
+                        infectionsByRequestedTime: severeImpact.infectionsByRequestedTime,
+                        severeCasesByRequestedTime: severeImpact.severeCasesByRequestedTime,
+                        hospitalBedsByRequestedTime: severeImpact.hospitalBedsByRequestedTime,
+                        casesForICUByRequestedTime: severeImpact.casesForICUByRequestedTime,
+                        casesForVentilatorsByRequestedTime: severeImpact.casesForVentilatorsByRequestedTime,
+                        dollarsInFlight: severeImpact.dollarsInFlight
+                    }
+
                 }
             };
 
-        
+
             res.end(xmlFormat(obj));
             next();
 
@@ -132,7 +153,7 @@ module.exports = server => {
         });
         try {
             const estimated = estimate(covid19);
-            
+
             res.send(estimated);
             next();
 
