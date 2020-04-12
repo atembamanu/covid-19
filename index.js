@@ -17,7 +17,7 @@ server.use(morgan( (tokens, req, res) => {
             req.time(),
             trimmedUrl,
             'done in ' + tokens['response-time'](req, res) + ' ms'
-        ].join('        ');
+        ].join('\t\t');
 
         fs.appendFile("logs.json", logdata + "\n",  (err) => {
             if (err)
