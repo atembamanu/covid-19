@@ -8,7 +8,7 @@ const fs = require('fs');
 
 module.exports = server => {
 
-    server.get('/logs', (req, res, next) => {
+    server.get('/api/v1/on-covid-19/logs', (req, res, next) => {
         res.setHeader('content-type', 'text/plain');
         const path = process.cwd();
         try {
