@@ -24,11 +24,13 @@ module.exports = server => {
     //add data
 
     server.post('/api/v1/on-covid-19', async (req, res, next) => {
+        res.setHeader('content-type', 'application/json');
         getJsonResponce(req, res, next);
     
     });
 
     server.post('/api/v1/on-covid-19/json', async (req, res, next) => {
+        res.setHeader('content-type', 'application/json');
         getJsonResponce(req, res, next);
     });
 
