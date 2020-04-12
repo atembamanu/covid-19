@@ -10,17 +10,20 @@ server.use(restify.plugins.bodyParser());
 
 server.use(morgan(function (tokens, req, res) {
     const url = tokens.url(req, res);
-    const trimmedUrl = url.slice(8, );
-    const logdata = [
-        req.time(),
-        trimmedUrl,
-        ' done in ' + tokens['response-time'](req, res) + ' ms'
-    ].join('\t\t');
+    const trimmedUrl = url.slice(8);
+    if (trimmedUrl === 'on-covid-19' || trimmedUrl === 'on-covid-19/json' || trimmedUrl === 'on-covid-19/xml') {
+        const logdata = [
+            req.time(),
+            trimmedUrl,
+            ' done in ' + tokens['response-time'](req, res) + ' ms'
+        ].join('\t\t');
 
-    fs.appendFile("logs.txt", logdata + "\n", function (err) {
-        if (err)
-        console.log(err);
-    });
+        fs.appendFile("logs.txt", logdata + "\n", function (err) {
+            if (err)
+                console.log(err);
+        });
+    }
+
 }));
 
 
