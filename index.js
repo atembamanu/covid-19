@@ -9,19 +9,21 @@ const fs = require('fs');
 server.use(restify.plugins.bodyParser());
 
 server.use(morgan((tokens, req, res) => {
-	//const url = tokens.url(req, res);
-	// const validUrls = ["/api/v1/on-covid-19", "/api/v1/on-covid-19/json", "/api/v1/on-covid-19/xml"];
-	// if (validUrls.includes(url)) {//	};
+	const url = tokens.url(req, res);
+	const validUrls = ["/api/v1/on-covid-19", "/api/v1/on-covid-19/json", "/api/v1/on-covid-19/xml"];
+	if (validUrls.includes(url)) {
 		const data = [
-		tokens.method(req, res),
-    tokens.url(req, res),
-    tokens.status(req, res),
-    tokens['response-time'](req, res) +'  ms'
-  ].join('\t\t')
-		fs.appendFile("logs.json", data + "\n", (err) => {
+			tokens.method(req, res),
+			url,
+			tokens.status(req, res),
+			tokens['response-time'](req, res) + ' ms'
+		].join('\t\t')
+		fs.appendFile("access.log", data + "\n", (err) => {
 			if (err)
 				console.log(err);
 		});
+	};
+
 }));
 
 

@@ -12,7 +12,7 @@ module.exports = server => {
         res.setHeader('content-type', 'text/plain');
         const path = process.cwd();
         try {
-            const data = fs.readFileSync(path + '/logs.json', 'utf8')
+            const data = fs.readFileSync(path + '/access.log', 'utf8')
             const lines = data.split('\n');
             // remove one line, starting at the first position
             lines.splice(-1, 1);
