@@ -18,16 +18,14 @@ server.use(morgan(function (tokens, req, res) {
     ].join('\t\t');
 
     fs.appendFile("logs.txt", logdata + "\n", function (err) {
-        if (!err)
-        console.log("Logged");
-        else
+        if (err)
         console.log(err);
     });
 }));
 
 
 server.listen(config.PORT, () => {
-    mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true });
+    mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 });
 
 

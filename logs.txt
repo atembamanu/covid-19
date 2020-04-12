@@ -1,9 +1,4 @@
-1586643698035		on-covid-19		 done in 10.014 ms
-1586643708697		on-covid-19/xml		 done in 3.491 ms
-1586643714549		on-covid-19/json		 done in 3.015 ms
-1586643727400		on-covid-19/logs		 done in 0.727 ms
-1586643751546		on-covid-19/logs		 done in 1.168 ms
-1586681039913		on-covid-19		 done in 6.260 ms
-1586681042898		on-covid-19/xml		 done in 1.721 ms
-1586681220308		on-covid-19/xml		 done in 6.807 ms
-1586681230576		on-covid-19/logs		 done in 0.436 ms
+1586690419802		on-covid-19		 done in 6.851 ms
+1586690426206		on-covid-19/xml		 done in 2.129 ms
+1586690430347		on-covid-19/json		 done in 1.192 ms
+1586690451083		on-covid-19/logs		 done in 0.265 ms
