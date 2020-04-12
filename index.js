@@ -8,17 +8,18 @@ const fs = require('fs');
 //middleware
 server.use(restify.plugins.bodyParser());
 
-server.use(morgan(function (tokens, req, res) {
+server.use(morgan( (tokens, req, res) => {
     const url = tokens.url(req, res);
     const trimmedUrl = url.slice(8);
-    if (trimmedUrl === 'on-covid-19' || trimmedUrl === 'on-covid-19/json' || trimmedUrl === 'on-covid-19/xml') {
+    const validUrls = ["on-covid-19", "on-covid-19/json", "on-covid-19/xml"];
+    if (validUrls.includes(trimmedUrl)) {
         const logdata = [
             req.time(),
             trimmedUrl,
-            ' done in ' + tokens['response-time'](req, res) + ' ms'
-        ].join('\t\t');
+            'done in ' + tokens['response-time'](req, res) + ' ms'
+        ].join('        ');
 
-        fs.appendFile("logs.txt", logdata + "\n", function (err) {
+        fs.appendFile("logs.json", logdata + "\n",  (err) => {
             if (err)
                 console.log(err);
         });

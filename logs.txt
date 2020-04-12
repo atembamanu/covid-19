@@ -1,3 +1,0 @@
-1586694408172		on-covid-19/xml		 done in 7.344 ms
-1586694419585		on-covid-19/json		 done in 2.837 ms
-1586694425439		on-covid-19		 done in 0.947 ms
