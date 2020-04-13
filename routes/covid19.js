@@ -14,9 +14,9 @@ module.exports = server => {
         try {
             const data = fs.readFileSync(path + '/access.log', 'utf8')
             const lines = data.split('\n');
-            // remove one line, starting at the first position
+        
             lines.splice(-1, 1);
-            // join the array back into a single string
+           
             const finalData = lines.join('\n');
             res.end(finalData);
             next();
