@@ -9,7 +9,6 @@ const fs = require('fs');
 server.use(restify.plugins.bodyParser());
 
 server.use(morgan((tokens, req, res) => {
-	const url = tokens.url(req, res);
 	const time = Math.trunc(tokens['response-time'](req, res));
 	let formattedTime;
 	if(time.toString().length == 1){
@@ -17,11 +16,10 @@ server.use(morgan((tokens, req, res) => {
 	}else{
 		formattedTime = time;
 	}
-	const validUrls = ["/api/v1/on-covid-19", "/api/v1/on-covid-19/json", "/api/v1/on-covid-19/xml"];
-	if (validUrls.includes(url)) {
+	
 		const data = [
 			tokens.method(req, res),
-			url,
+			tokens.url(req, res),
 			tokens.status(req, res),
 			formattedTime + ' ms'
 		].join('\t\t')
@@ -29,7 +27,6 @@ server.use(morgan((tokens, req, res) => {
 			if (err)
 				console.log(err);
 		});
-	};
 
 }));
 
