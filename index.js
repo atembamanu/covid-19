@@ -10,13 +10,20 @@ server.use(restify.plugins.bodyParser());
 
 server.use(morgan((tokens, req, res) => {
 	const url = tokens.url(req, res);
+	const time = Math.trunc(tokens['response-time'](req, res));
+	let formattedTime;
+	if(time.toString().length == 1){
+		formattedTime = ("0" + time).slice(-2);
+	}else{
+		formattedTime = time;
+	}
 	const validUrls = ["/api/v1/on-covid-19", "/api/v1/on-covid-19/json", "/api/v1/on-covid-19/xml"];
 	if (validUrls.includes(url)) {
 		const data = [
 			tokens.method(req, res),
 			url,
 			tokens.status(req, res),
-			tokens['response-time'](req, res) + ' ms'
+			formattedTime + ' ms'
 		].join('\t\t')
 		fs.appendFile("access.log", data + "\n", (err) => {
 			if (err)
