@@ -21,7 +21,7 @@ server.use(morgan((tokens, req, res) => {
 			tokens.method(req, res),
 			tokens.url(req, res),
 			tokens.status(req, res),
-			formattedTime + ' ms'
+			formattedTime + 'ms'
 		].join('\t\t')
 		fs.appendFile("access.log", data + "\n", (err) => {
 			if (err)
